@@ -1,5 +1,6 @@
 package us.mattgreen;
 
+import java.util.Objects;
 import java.util.Scanner;
 
 public class AnimalManager {
@@ -14,11 +15,11 @@ public class AnimalManager {
             input = getInput("\n\nWhat type of animal would you like to create?\n\n1) Pet\n2) Human (Teacher)\n\n> ");
 
             // pet
-            if(input == "1") {
+            if(input.equals("1")) {
                  createPet();
 
             // human
-            } else if(input == "2") {
+            } else if(input.equals("2")) {
 
                 createTeacher();
 
@@ -27,7 +28,7 @@ public class AnimalManager {
                 System.out.println("Please select a valid option");
             }
 
-        } while (input != "1" && input != "2");
+        } while (!input.equals("1") && !input.equals("2"));
     }
 
     // helper methods
@@ -40,6 +41,8 @@ public class AnimalManager {
     }
 
     private void createPet() {
+        Pet pet;
+
         String input;
 
         do {
@@ -47,27 +50,79 @@ public class AnimalManager {
             input = getInput("\n\nWhich type of Pet would you like to create?\n\n1) Dog\n2) Cat\n\n> ");
 
             // dog
-            if(input == "1") {
-                createDog();
+            if(input.equals("1")) {
+                pet = createDog();
 
             // cat
-            } else if(input == "2") {
-                //TODO: createCat()
-                createCat();
+            } else if(input.equals("2")) {
+                pet = createCat();
 
             // invalid, repeat loop
             } else {
                 System.out.println("Please select a valid option");
             }
 
-        } while (input != "1" && input != "2");
+        } while (!input.equals("1") && !input.equals("2"));
     }
 
-    private void createCat() {
+    private Cat createCat() {
+        Cat cat = null;
 
+        String name;
+
+        do {
+            name = getInput("\n\nWhat is the name of this cat?\n\n> ");
+
+            // continue
+            if(!name.isBlank()) {
+
+                // continue
+                if(name.length() > 1) {
+
+                    // get mousesKilled field
+                    String mice;
+                    int numMice = -1;
+
+                    do {
+                        mice = getInput(String.format("\n\nHow many mice has %s killed?\n\n> ", name));
+
+                        try {
+                            numMice = Integer.parseInt(mice.strip());
+
+                            // invalid, repeat loop
+                            if(numMice < 0) {
+                                System.out.println("Please enter a positive value!");
+                            }
+
+                        // invalid, repeat loop
+                        } catch(Exception e) {
+                            numMice = -1;
+
+                            System.out.println("Please enter a valid number!");
+                        }
+
+                    } while (numMice < 0);
+
+                    cat = new Cat(numMice, name);
+
+                // invalid, repeat loop
+                } else {
+                    System.out.println("Name must be AT LEAST 2 characters long!");
+                }
+
+            // invalid, repeat loop
+            } else {
+                System.out.println("Please enter a valid name!");
+            }
+
+        } while(name.isBlank());
+
+        return cat;
     }
 
-    private void createDog() {
+    private Dog createDog() {
+        Dog dog = null;
+
         String name;
 
         do {
@@ -84,14 +139,14 @@ public class AnimalManager {
                     boolean isFriendly = false;
 
                     do {
-                        friendly = getInput(String.format("\n\nIs %s friendly?\n\n> ", name));
+                        friendly = getInput(String.format("\n\nIs %s friendly?\n\ny) Yes\nn) No\n\n> ", name));
 
                         // yes
-                        if(friendly == "y") {
+                        if(friendly.equals("y")) {
                             isFriendly = true;
 
                         // no
-                        } else if(friendly == "n") {
+                        } else if(friendly.equals("n")) {
                             isFriendly = false;
 
                         // invalid, repeat loop
@@ -99,10 +154,10 @@ public class AnimalManager {
                             System.out.println("Please enter a valid option!");
                         }
 
-                    } while(friendly != "y" && friendly != "n");
+                    } while(!friendly.equals("y") && !friendly.equals("n"));
 
                     // create object
-                    Dog dog = new Dog(isFriendly, name);
+                    dog = new Dog(isFriendly, name);
 
                 // invalid, repeat loop
                 } else {
@@ -114,7 +169,9 @@ public class AnimalManager {
                 System.out.println("Please enter a valid name!");
             }
 
-        } while(!name.isBlank());
+        } while(name.isBlank());
+
+        return dog;
     }
 
     private void createTeacher() {

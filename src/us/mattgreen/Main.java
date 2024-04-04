@@ -8,6 +8,8 @@ public class Main {
     private final static FileInput inFile = new FileInput("animals.txt");
 
     public static void main(String[] args) {
+        AnimalManager animalManager = new AnimalManager();
+
         ArrayList<Talkable> zoo = new ArrayList<>();
 
         // Lines to Replace Begin Here
@@ -28,6 +30,8 @@ public class Main {
         while ((line = indata.fileReadLine()) != null) {
             System.out.println(line);
         }
+
+        animalManager.createAnimalWithInput();
     }
 
     public static void printOut(Talkable p) {

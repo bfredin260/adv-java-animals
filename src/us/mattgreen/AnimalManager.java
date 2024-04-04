@@ -48,7 +48,6 @@ public class AnimalManager {
 
             // dog
             if(input == "1") {
-                //TODO: createDog()
                 createDog();
 
             // cat
@@ -66,6 +65,56 @@ public class AnimalManager {
 
     private void createCat() {
 
+    }
+
+    private void createDog() {
+        String name;
+
+        do {
+            name = getInput("\n\nWhat is the name of this dog?\n\n> ");
+
+            // continue
+            if(!name.isBlank()) {
+
+                // continue
+                if(name.length() > 1) {
+
+                    // get boolean for friendly field
+                    String friendly;
+                    boolean isFriendly = false;
+
+                    do {
+                        friendly = getInput(String.format("\n\nIs %s friendly?\n\n> ", name));
+
+                        // yes
+                        if(friendly == "y") {
+                            isFriendly = true;
+
+                        // no
+                        } else if(friendly == "n") {
+                            isFriendly = false;
+
+                        // invalid, repeat loop
+                        } else {
+                            System.out.println("Please enter a valid option!");
+                        }
+
+                    } while(friendly != "y" && friendly != "n");
+
+                    // create object
+                    Dog dog = new Dog(isFriendly, name);
+
+                // invalid, repeat loop
+                } else {
+                    System.out.println("Name must be AT LEAST 2 characters long!");
+                }
+
+            // invalid, repeat loop
+            } else {
+                System.out.println("Please enter a valid name!");
+            }
+
+        } while(!name.isBlank());
     }
 
     private void createTeacher() {

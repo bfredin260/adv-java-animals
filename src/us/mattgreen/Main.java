@@ -8,15 +8,12 @@ public class Main {
     private final static FileInput inFile = new FileInput("animals.txt");
 
     public static void main(String[] args) {
-        AnimalManager animalManager = new AnimalManager();
-
         ArrayList<Talkable> zoo = new ArrayList<>();
 
-        // Lines to Replace Begin Here
-        zoo.add(new Dog(true, "Bean"));
-        zoo.add(new Cat(9, "Charlie"));
-        zoo.add(new Teacher(44, "Stacy Read"));
-        // End Lines to Replace
+        AnimalManager animalManager = new AnimalManager();
+        animalManager.newZooAnimal(zoo);
+        animalManager.newZooAnimal(zoo);
+        animalManager.newZooAnimal(zoo);
 
         for (Talkable thing : zoo) {
             printOut(thing);
@@ -30,8 +27,6 @@ public class Main {
         while ((line = indata.fileReadLine()) != null) {
             System.out.println(line);
         }
-
-        animalManager.createAnimalWithInput();
     }
 
     public static void printOut(Talkable p) {

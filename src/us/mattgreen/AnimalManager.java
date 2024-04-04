@@ -1,5 +1,6 @@
 package us.mattgreen;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class AnimalManager {
@@ -9,9 +10,12 @@ public class AnimalManager {
     public Scanner sc = new Scanner(System.in);
 
     // parent method
-    // helper methods
+    public void newZooAnimal(List<Talkable> list) {
+        addToList(list, createAnimalWithInput());
+    }
 
-    public Talkable createAnimalWithInput(){
+    // helper methods
+    private Talkable createAnimalWithInput(){
         Talkable animal = null;
 
         String input;
@@ -165,5 +169,10 @@ public class AnimalManager {
         } while(!input.equals("y") && !input.equals("n"));
 
         return bool;
+    }
+
+    // public methods
+    public static void addToList(List<Talkable> list, Talkable animal) {
+        list.add(animal);
     }
 }
